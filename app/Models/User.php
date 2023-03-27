@@ -40,5 +40,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+
+        'is_admin' => 'boolean'
     ];
+
+    public function todos()
+    {
+        return $this->hasMany(Todo::class);
+    }
 }
