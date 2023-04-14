@@ -19,14 +19,18 @@ class UserController extends Controller
             })
                 ->orderBy('name')
                 ->where('id', '!=', '1')
+                //paginate banyak info
                 ->paginate(20)
+                // ->simplePaginate(20) //paginate simple
                 ->withQueryString();
         } else {
             // $todos = Todo::where('user_id', auth()->user()->id)->get();
             // dd($todos);
             $users = User::where('id', '!=', '1')
                 ->orderBy('name')
+                //paginate banyak info
                 ->paginate(10);
+                // ->simplePaginate(10); //paginate simple
         }
         return view('user.index', compact('users'));
     }

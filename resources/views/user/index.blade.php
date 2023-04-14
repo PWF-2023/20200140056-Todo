@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight ">
-            {{ __('User') }}
+            {{ __('User - index') }}
         </h2>
     </x-slot>
 
@@ -48,8 +48,11 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
-                                    Id
+                                    No
                                 </th>
+                                {{-- <th scope="col" class="px-6 py-3">
+                                    Id
+                                </th> --}}
                                 <th scope="col" class="px-6 py-3">
                                     Name
                                 </th>
@@ -113,7 +116,7 @@
                 </div>
                 @if ($users->hasPages())
                 <div class="p-6">
-                    {{ $users->Links() }}
+                    {{ $users->Links('vendor.pagination.custom-tailwind') }}
                 </div>
                 @endif
             </div>
