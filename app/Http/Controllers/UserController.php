@@ -19,19 +19,45 @@ class UserController extends Controller
             })
                 ->orderBy('name')
                 ->where('id', '!=', '1')
-                //paginate banyak info
                 ->paginate(20)
-                // ->simplePaginate(20) //paginate simple
+                // ->simplePaginate(10)
                 ->withQueryString();
         } else {
             // $todos = Todo::where('user_id', auth()->user()->id)->get();
             // dd($todos);
             $users = User::where('id', '!=', '1')
                 ->orderBy('name')
-                //paginate banyak info
                 ->paginate(10);
-                // ->simplePaginate(10); //paginate simple
+                // ->simplePaginate(10);
         }
         return view('user.index', compact('users'));
+    }
+    public function makeadmin(User $user)
+    {
+        $user->timestamps = false;
+        $user->is_admin = true;
+        $user->save();
+        return back()->with('success', 'Make admin successfully!');
+    }
+
+    public function removeadmin(User $user)
+    {
+        if ($user->id !=1) {
+            $user->timestamps = false;
+            $user->is_admin = false;
+            $user->save();
+            return back()->with('success', 'Remove admin successfully!');
+        } else {
+            return redirect()->route('user.index');
+        }
+    }
+    public function destroy(User $user)
+    {
+        if ($user->id !=1) {
+            $user->delete();
+            return back()->with('success', 'Delete user successfully!');
+        } else {
+            return redirect()->route('user.index')->with('danger', 'Delete user failed!');
+        }
     }
 }
