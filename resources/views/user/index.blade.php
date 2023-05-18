@@ -10,7 +10,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="px-6 pt-6 mb-5 md:w-1/2 2xl:w-1/3">
+                {{-- <div class="px-6 pt-6 mb-5 md:w-1/2 2xl:w-1/3">
                     @if (request('search'))
                     <h2 class="pb-3 text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                         Search results for : {{ request('search')}}
@@ -42,7 +42,43 @@
                             @endif
                         </div>
                     </div>
+                </div> --}}
+
+                <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
+                    <div class="flex flex-col sm:flex-row items-center justify-between">
+                        <div class="w-full sm:w-1/2 2xl:w-1/3">
+                            @if (request('search'))
+                            <h2 class="pb-3 text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+                                Search results for : {{ request('search') }}
+                            </h2>
+                            @endif
+                            <form class="flex items-center gap-2">
+                                <x-text-input id="search" name="search" type="text" class="w-full"
+                                    placeholder="Search by name or email ..." value="{{ request('search') }}"
+                                    autofocus />
+                                <x-primary-button type="submit">
+                                    {{ __('Search') }}
+                                </x-primary-button>
+                            </form>
+                        </div>
+                        <div>
+                            @if (session('success'))
+                            <p x-data="{ show: true }" x-show="show" x-transition
+                                x-init="setTimeout(() => show = false, 5000)"
+                                class="text-sm text-green-600 dark:text-green-400 mt-5 sm:mt-0">{{ session('success') }}
+                            </p>
+                            @endif
+                            @if (session('danger'))
+                            <p x-data="{ show: true }" x-show="show" x-transition
+                                x-init="setTimeout(() => show = false, 5000)"
+                                class="text-sm text-red-600 dark:text-red-400 mt-5 sm:mt-0">{{ session('danger') }}
+                            </p>
+                            @endif
+                        </div>
+                    </div>
                 </div>
+
+                {{--- Table user ---}}
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -146,8 +182,8 @@
                 </div>
                 @if ($users->hasPages())
                 <div class="p-6">
-                    <!-- {{ $users->Links() }} -->
-                    {{ $users->links('vendor.pagination.custom-tailwind') }}
+                    {{ $users->Links() }}
+                    {{-- {{ $users->links('vendor.pagination.custom-tailwind') }} --}}
                 </div>
                 @endif
             </div>
